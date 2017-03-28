@@ -31,7 +31,7 @@ namespace iGear_Export_Summary
             //0 = nothing to do
             //1 = an export was done
             //2 = an error occured
-            int actTest = exTract();
+            int actTest = ExTract();
 
             if (actTest == 1)
             {
@@ -46,7 +46,7 @@ namespace iGear_Export_Summary
 
         }
 
-        static int exTract()
+        static int ExTract()
         {
             //take the date and time - if I am first of mionth, do the previous month
             //if I am sunday do last week  - both if sunday is first of the month
@@ -102,7 +102,8 @@ namespace iGear_Export_Summary
                                 //write to data file
                                 //streamwrite the output to a timestamped file
                                 sw.WriteLine(reader["a_ProductionDate"] + "\t" + reader["MAT_NUM"] + "\t" + reader["OLD_MAT_REF"] + "\t" + reader["PLANT"] + "\t" + reader["SLOC"] + "\t" +
-                                reader["BATCH_NUM"] + "\t" + reader["HU_NUM"] + "\t" + reader["SERIAL"] + "\t" + reader["scantimestamp"] + "\t" + reader["WO #"]);
+                                reader["BATCH_NUM"] + "\t" + reader["HU_NUM"] + "\t" + reader["SERIAL"].ToString() + "\t" + reader["scantimestamp"] + "\t" + reader["WO #"]);
+                                //change serial field to be string, to remove any trailing .zeros
                             }
                         }
                     }

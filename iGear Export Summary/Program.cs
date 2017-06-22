@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
-using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 
@@ -13,8 +8,8 @@ namespace iGear_Export_Summary
     class Program
     {
 
-        static System.Data.SqlClient.SqlConnection sqlConnection = new System.Data.SqlClient.SqlConnection(iGear_Export_Summary.Properties.Settings.Default.sqlConnection);
-        static System.Data.SqlClient.SqlConnection sqlConnection1 = new System.Data.SqlClient.SqlConnection(iGear_Export_Summary.Properties.Settings.Default.sqlConnection);
+        static SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.sqlConnection);
+        static SqlConnection sqlConnection1 = new SqlConnection(Properties.Settings.Default.sqlConnection);
         static string sSource = "iGear";
         static string sLog = "Dana";
 
@@ -93,7 +88,7 @@ namespace iGear_Export_Summary
                     if (reader.HasRows)
                     {
                         string streamFile = dteStart.ToString("yyyyMMdd");
-                        using (StreamWriter sw = new StreamWriter(iGear_Export_Summary.Properties.Settings.Default.streamPath + filename + streamFile + ".txt"))
+                        using (StreamWriter sw = new StreamWriter(Properties.Settings.Default.streamPath + filename + streamFile + ".txt"))
                         {
                             //write header
                             sw.WriteLine("Production Date\tMAT_NUM\tOLD_MAT_REF\tPLANT\tSLOC\tBATCH_NUM\tHU_NUM\tSERIAL\tscantimestamp\tWO #");
@@ -136,7 +131,7 @@ namespace iGear_Export_Summary
                     if (reader1.HasRows)
                     {
                         string streamFile = dteStart.ToString("yyyyMMdd");
-                        using (StreamWriter sw = new StreamWriter(iGear_Export_Summary.Properties.Settings.Default.streamPath + filename + streamFile + ".txt"))
+                        using (StreamWriter sw = new StreamWriter(Properties.Settings.Default.streamPath + filename + streamFile + ".txt"))
                         {
                             //write header
                             sw.WriteLine("Production Date\tMAT_NUM\tOLD_MAT_REF\tPLANT\tSLOC\tBATCH_NUM\tHU_NUM\tSERIAL\tscantimestamp\tWO #");

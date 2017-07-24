@@ -72,12 +72,15 @@ namespace iGear_Export_Summary
 
                     //R1276932 - MSW - 11th Jan 2017
                     //workorderhistory changed from workorder
+                    //R1359319 - MSW - 24t July 2017
+                    //added asset table to select
                     string CommandText = " select a_ProductionDate, b.supplierpart MAT_NUM, '' OLD_MAT_REF, '3602' PLANT, 'SOEM' SLOC,'A' BATCH_NUM, " +
-                         "a.serialnumber HU_NUM, c.PartSerialNumber SERIAL, c.scantimestamp , d.Number 'WO #' " +
+                         "a.serialnumber HU_NUM, c.PartSerialNumber SERIAL, c.scantimestamp , d.Number 'WO #', e.Description 'WRKCTR' " +
                          "from pallet a " +
                          "inner join PartDefinition b on a.PartDefinition_ID = b.ID " +
                          "inner join PalletDetail c on a.id = c.Pallet_ID " +
                          "inner join WorkOrderHistory d on a.WorkOrderHistory_ID = d.ID " +
+                         "inner join Asset e on a.Asset_ID = e.ID " +
                          "where Status_ID = 1 " +
                          "and c.scantimestamp > '" + dteStart.ToString("yyyy-MM-dd HH:mm:ss") + "' and c.scantimestamp <= '" + dteStop.ToString("yyyy-MM-dd HH:mm:ss") + "' " +
                          "order by c.ScanTimestamp";
@@ -91,13 +94,14 @@ namespace iGear_Export_Summary
                         using (StreamWriter sw = new StreamWriter(Properties.Settings.Default.streamPath + filename + streamFile + ".txt"))
                         {
                             //write header
-                            sw.WriteLine("Production Date\tMAT_NUM\tOLD_MAT_REF\tPLANT\tSLOC\tBATCH_NUM\tHU_NUM\tSERIAL\tscantimestamp\tWO #");
+                            sw.WriteLine("Production Date\tMAT_NUM\tOLD_MAT_REF\tPLANT\tSLOC\tBATCH_NUM\tHU_NUM\tSERIAL\tscantimestamp\tWO #\tWork Centre");
                             while (reader.Read())
                             {
                                 //write to data file
                                 //streamwrite the output to a timestamped file
+                                //R1359319 - MSW - 24th July 2017
                                 sw.WriteLine(reader["a_ProductionDate"] + "\t" + reader["MAT_NUM"] + "\t" + reader["OLD_MAT_REF"] + "\t" + reader["PLANT"] + "\t" + reader["SLOC"] + "\t" +
-                                reader["BATCH_NUM"] + "\t" + reader["HU_NUM"] + "\t" + reader["SERIAL"].ToString() + "\t" + reader["scantimestamp"] + "\t" + reader["WO #"]);
+                                reader["BATCH_NUM"] + "\t" + reader["HU_NUM"] + "\t" + reader["SERIAL"].ToString() + "\t" + reader["scantimestamp"] + "\t" + reader["WO #"] + "\t" + reader["WRKCTR"]);
                                 //change serial field to be string, to remove any trailing .zeros
                             }
                         }
@@ -115,12 +119,15 @@ namespace iGear_Export_Summary
 
                     //R1276932 - MSW - 11th Jan 2017
                     //workorderhistory changed from workorder
+                    //R1359319 - MSW - 24t July 2017
+                    //added asset table to select
                     string CommandText1 = " select a_ProductionDate, b.supplierpart MAT_NUM, '' OLD_MAT_REF, '3602' PLANT, 'SOEM' SLOC,'A' BATCH_NUM, " +
-                        "a.serialnumber HU_NUM, c.PartSerialNumber SERIAL, c.scantimestamp , d.Number 'WO #' " +
+                        "a.serialnumber HU_NUM, c.PartSerialNumber SERIAL, c.scantimestamp , d.Number 'WO #', e.Description 'WRKCTR'" +
                         "from pallet a " +
                         "inner join PartDefinition b on a.PartDefinition_ID = b.ID " +
                         "inner join PalletDetail c on a.id = c.Pallet_ID " +
                         "inner join WorkOrderHistory d on a.WorkOrderHistory_ID = d.ID " +
+                        "inner join Asset e on a.Asset_ID = e.ID " + 
                         "where Status_ID = 1 " +
                         "and c.scantimestamp > '" + dteStart.ToString("yyyy-MM-dd HH:mm:ss") + "' and c.scantimestamp <= '" + dteStop.ToString("yyyy-MM-dd HH:mm:ss") + "' " +
                         "order by c.ScanTimestamp";
@@ -134,13 +141,15 @@ namespace iGear_Export_Summary
                         using (StreamWriter sw = new StreamWriter(Properties.Settings.Default.streamPath + filename + streamFile + ".txt"))
                         {
                             //write header
-                            sw.WriteLine("Production Date\tMAT_NUM\tOLD_MAT_REF\tPLANT\tSLOC\tBATCH_NUM\tHU_NUM\tSERIAL\tscantimestamp\tWO #");
+                            //R1359319 - MSW - 24t July 2017
+                            //added workcentre to output
+                            sw.WriteLine("Production Date\tMAT_NUM\tOLD_MAT_REF\tPLANT\tSLOC\tBATCH_NUM\tHU_NUM\tSERIAL\tscantimestamp\tWO #\tWork Centre");
                             while (reader1.Read())
                             {
                                 //write to data file
                                 //streamwrite the output to a timestamped file
                                 sw.WriteLine(reader1["a_ProductionDate"] + "\t" + reader1["MAT_NUM"] + "\t" + reader1["OLD_MAT_REF"] + "\t" + reader1["PLANT"] + "\t" + reader1["SLOC"] + "\t" +
-                                reader1["BATCH_NUM"] + "\t" + reader1["HU_NUM"] + "\t" + reader1["SERIAL"] + "\t" + reader1["scantimestamp"] + "\t" + reader1["WO #"]);
+                                reader1["BATCH_NUM"] + "\t" + reader1["HU_NUM"] + "\t" + reader1["SERIAL"] + "\t" + reader1["scantimestamp"] + "\t" + reader1["WO #"] + "\t" + reader1["WRKCTR"]);
                             }
                         }
                     }

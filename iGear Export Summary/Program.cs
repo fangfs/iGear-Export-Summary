@@ -52,6 +52,9 @@ namespace iGear_Export_Summary
             //stop is always today
             DateTime dteStop = DateTime.Now.AddDays(-1);
 
+            //for stocktake week only - get today as well....
+            dteStop = DateTime.Now;
+
             //open database ready to read
             sqlConnection.Open();
             sqlConnection1.Open();

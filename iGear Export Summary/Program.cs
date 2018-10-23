@@ -10,13 +10,12 @@ namespace iGear_Export_Summary
 
         static SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.sqlConnection);
         static SqlConnection sqlConnection1 = new SqlConnection(Properties.Settings.Default.sqlConnection);
-        static string sSource = "iGear";
-        static string sLog = "Dana";
-
-
+        static readonly string sSource = "iGear";
+        static readonly string sLog = "Dana";
+        static int intCount = 0;
+               
         static void Main(string[] args)
         {
-
             //make the event log
             //ensure event log is there and working...
             if (!EventLog.SourceExists(sSource))
@@ -31,7 +30,7 @@ namespace iGear_Export_Summary
             if (actTest == 1)
             {
                 //ok first part passed - do the next
-                EventLog.WriteEntry(sSource, "Done", EventLogEntryType.Information, 301);
+                EventLog.WriteEntry(sSource, "Done: " + intCount.ToString() + " Records", EventLogEntryType.Information, 301);
             }
             else if (actTest == 0)
             {
@@ -43,7 +42,7 @@ namespace iGear_Export_Summary
 
         static int ExTract()
         {
-            //take the date and time - if I am first of mionth, do the previous month
+            //take the date and time - if I am first of month, do the previous month
             //if I am sunday do last week  - both if sunday is first of the month
             DateTime dteStart = DateTime.Now;
             string DayOfWeek = DateTime.Now.DayOfWeek.ToString();
@@ -103,6 +102,8 @@ namespace iGear_Export_Summary
                                 sw.WriteLine(reader["a_ProductionDate"] + "\t" + reader["MAT_NUM"] + "\t" + reader["OLD_MAT_REF"] + "\t" + reader["PLANT"] + "\t" + reader["SLOC"] + "\t" +
                                 reader["BATCH_NUM"] + "\t" + reader["HU_NUM"] + "\t" + reader["SERIAL"].ToString() + "\t" + reader["scantimestamp"] + "\t" + reader["WO #"] + "\t" + reader["WRKCTR"]);
                                 //change serial field to be string, to remove any trailing .zeros
+                                //set count of rows extracetd
+                                intCount++;
                             }
                         }
                     }
@@ -110,13 +111,28 @@ namespace iGear_Export_Summary
                     returnvalue = 1;
                 }
 
+                //added as part of reporting improvments
+                //check if mode is set = if not 0 then run the weekly summary anyway
+                if(Properties.Settings.Default.intMode != 0)
+                {
+                    //change the day of week
+                    DayOfWeek = "Sunday";
+                    dteStop = DateTime.Now;
+                    dteStart = DateTime.Now.AddDays(-7);
+                    //anme the file
+                    filename = "PreStockTake";
+                }
+                else
+                {
+                    //start period
+                    dteStart = DateTime.Now.AddDays(-8);
+                    //name the file
+                    filename = "Week";
+                }
+
                 //if I get here i have been succesfull - carry on the check the day of the week.
                 if (DayOfWeek == "Sunday")
-                {
-                    //first of the month
-                    dteStart = DateTime.Now.AddDays(-8);
-                    filename = "Week";
-
+                {                
                     //R1276932 - MSW - 11th Jan 2017
                     //workorderhistory changed from workorder
                     //R1359319 - MSW - 24t July 2017
@@ -150,6 +166,9 @@ namespace iGear_Export_Summary
                                 //streamwrite the output to a timestamped file
                                 sw.WriteLine(reader1["a_ProductionDate"] + "\t" + reader1["MAT_NUM"] + "\t" + reader1["OLD_MAT_REF"] + "\t" + reader1["PLANT"] + "\t" + reader1["SLOC"] + "\t" +
                                 reader1["BATCH_NUM"] + "\t" + reader1["HU_NUM"] + "\t" + reader1["SERIAL"] + "\t" + reader1["scantimestamp"] + "\t" + reader1["WO #"] + "\t" + reader1["WRKCTR"]);
+
+                                //set count of rows extracted
+                                intCount++;
                             }
                         }
                     }

@@ -16,5 +16,8 @@
     <Setting Name="streamPath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">\\traukbirmfs01\all\iGear\</Value>
     </Setting>
+    <Setting Name="intMode" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

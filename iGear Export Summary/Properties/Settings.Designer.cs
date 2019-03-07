@@ -59,5 +59,23 @@ namespace iGear_Export_Summary.Properties {
                 return ((int)(this["intMode"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("iGear")]
+        public string strSource {
+            get {
+                return ((string)(this["strSource"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Dana")]
+        public string strLog {
+            get {
+                return ((string)(this["strLog"]));
+            }
+        }
     }
 }

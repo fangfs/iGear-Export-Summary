@@ -19,5 +19,11 @@
     <Setting Name="intMode" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="strSource" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">iGear</Value>
+    </Setting>
+    <Setting Name="strLog" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Dana</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -10,16 +10,14 @@ namespace iGear_Export_Summary
 
         static SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.sqlConnection);
         static SqlConnection sqlConnection1 = new SqlConnection(Properties.Settings.Default.sqlConnection);
-        static readonly string sSource = "iGear";
-        static readonly string sLog = "Dana";
         static int intCount = 0;
                
         static void Main(string[] args)
         {
             //make the event log
             //ensure event log is there and working...
-            if (!EventLog.SourceExists(sSource))
-                EventLog.CreateEventSource(sSource, sLog);
+            if (!EventLog.SourceExists(Properties.Settings.Default.strSource))
+                EventLog.CreateEventSource(Properties.Settings.Default.strSource, Properties.Settings.Default.strLog);
 
             //run exports through a test - return based on results
             //0 = nothing to do
@@ -30,12 +28,12 @@ namespace iGear_Export_Summary
             if (actTest == 1)
             {
                 //ok first part passed - do the next
-                EventLog.WriteEntry(sSource, "Done: " + intCount.ToString() + " Records", EventLogEntryType.Information, 301);
+                EventLog.WriteEntry(Properties.Settings.Default.strSource, "Done: " + intCount.ToString() + " Records", EventLogEntryType.Information, 301);
             }
             else if (actTest == 0)
             {
                 //do nothing the first part failed.
-                EventLog.WriteEntry(sSource, "Nothing to be done", EventLogEntryType.Information, 302);
+                EventLog.WriteEntry(Properties.Settings.Default.strSource, "Nothing to be done", EventLogEntryType.Information, 302);
             }
 
         }
@@ -184,7 +182,7 @@ namespace iGear_Export_Summary
             catch (Exception e)
             {
                 //write error log, then return false
-                EventLog.WriteEntry(sSource, e.Message, EventLogEntryType.Error, 200);
+                EventLog.WriteEntry(Properties.Settings.Default.strSource, e.Message, EventLogEntryType.Error, 200);
                 sqlConnection.Close();
                 sqlConnection1.Close();
                 return 2;

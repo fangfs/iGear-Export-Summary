@@ -139,11 +139,6 @@
             "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_7A7A7B535615053999059EB43974EC6A"
-                    {
-                    "Name" = "8:System.Net.Http.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:System.Net.Http.dll"
             "TargetName" = "8:"
@@ -230,15 +225,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:iGear Summary"
-        "ProductCode" = "8:{BF748A83-7D5E-45CF-A12E-5BBAA664967D}"
-        "PackageCode" = "8:{8EF40549-D912-42A1-A7FE-265CF26C959A}"
+        "ProductCode" = "8:{5B86767A-C96B-4F7F-819C-F07A5386F9C4}"
+        "PackageCode" = "8:{2E0D357D-C6E7-4C60-8211-6B67C3B757DD}"
         "UpgradeCode" = "8:{4C149728-751A-4301-9FCB-DAEC8D5F5DF0}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.6"
+        "ProductVersion" = "8:1.0.7"
         "Manufacturer" = "8:Dana Holding UK"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -331,7 +326,7 @@
                                                     {
                                                     "Name" = "8:Dana"
                                                     "Condition" = "8:"
-                                                    "AlwaysCreate" = "11:FALSE"
+                                                    "AlwaysCreate" = "11:TRUE"
                                                     "DeleteAtUninstall" = "11:FALSE"
                                                     "Transitive" = "11:FALSE"
                                                         "Keys"

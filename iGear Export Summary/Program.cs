@@ -117,8 +117,8 @@ namespace iGear_Export_Summary
                     DayOfWeek = "Sunday";
                     dteStop = DateTime.Now;
                     dteStart = DateTime.Now.AddDays(-7);
-                    //anme the file
-                    filename = "PreStockTake";
+                    //name the file
+                    filename = "MSW-";
                 }
                 else
                 {
